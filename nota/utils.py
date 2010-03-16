@@ -1,4 +1,4 @@
-from os import path
+from os import path, stat
 
 class NotaError(Exception): pass
 
@@ -8,8 +8,8 @@ def change_ext(name, newext):
 	return "%s.%s" % (path.splitext(name)[0], newext)
 
 def needs_conversion(filepath):
-	if path.exists(_change_ext(filepath,"html")) \
-		and (stat(filepath).st_ctime <= stat(_change_ext(filepath,"html")).st_ctime):
+	if path.exists(change_ext(filepath,"html")) \
+		and (stat(filepath).st_ctime <= stat(change_ext(filepath,"html")).st_ctime):
 			return False
 	else:
 		return True

@@ -1,0 +1,36 @@
+#!/usr/bin/python
+import sys, os, getopt, nota
+
+opts, args = getopt.getopt(sys.argv[1:], '', ['clean', 'force'])
+
+opts = dict(opts)
+
+force = False
+
+if '--clean' in opts:
+	print "clean..."
+	sys.exit(0)
+
+if '--force' in opts:
+	force = True
+
+if len(args) < 1:
+	print >> sys.stderr, "Usage: nota <path0> [<path1> ... <pathn>]"
+	sys.exit(-1)
+
+job = nota.NotaJob(force)
+
+for path in args:
+	if os.path.exists(path):
+		if os.path.isfile(path):
+			job.add_file(path)
+		elif os.path.isdir(path):
+			job.add_dir(path)
+		else:
+			print >> sys.stderr, "\"%s\" isn't a file or a directory, what are you trying to do?" % path
+			sys.exit(-2)
+	else:
+		print >> sys.stderr, "\"%s\" doesn't exist" % infile
+		sys.exit(-2)
+
+job.execute()

@@ -41,6 +41,7 @@ setup(
 	version = nota.VERSION,
 	packages = packages,
 	data_files = data_files,
+	scripts = ['nota/bin/nota'],
 	author = "Rob Golding",
 	author_email = "rob@robgolding.com",
 	description = "A simple wrapper around the `pandoc' Haskell tool for taking notes in Markdown.",
